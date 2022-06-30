@@ -10,5 +10,8 @@
   margin-top: 15px;
 }
 .cart {
-  text-align: right;
+  margin-bottom: -30px;
+  padding-top: 5px;
+  display: flex;
+  justify-content: flex-end;
 }

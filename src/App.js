@@ -4,6 +4,7 @@ import Products from "./Products/Pages/Products";
 import NewProduct from "./Products/Pages/NewProduct";
 import Header from "./Shared/Header/Header";
 import Footer from "./Shared/Footer/Footer";
+import Contatct from "./Shared/Footer/Contact/Contatct";
 
 
 
@@ -11,16 +12,18 @@ const App = () => {
 
   return (
     <Router>
-      <header><Header /></header>
+      <Header />
       <Switch>
         <Route path="/" exact> <Products /> </Route>
 
         <Route path="/new/product" exact> <NewProduct /> </Route>
 
+        <Route path="/contact" exact> <Contatct /> </Route>
+
         <Redirect to="/"/>
 
       </Switch>
-      <footer><Footer /></footer>
+      <Footer />
     </Router>
   );
 }
