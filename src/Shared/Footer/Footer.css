@@ -1,0 +1,23 @@
+.footer {
+  background-color: rgba(196, 195, 195, 0.933);
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 33%;
+  padding-right: 33%;
+  padding-bottom: 3%;
+  padding-top: 5%;
+  margin-top: 100px;
+}
+
+.contact,
+.about {
+  font-size: 30px;
+}
+
+.facebook,
+.instagram {
+  padding-top: 40%;
+}
