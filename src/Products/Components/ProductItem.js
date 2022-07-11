@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ProductPage from '../Pages/ProductPage';
+
 import './ProductItem.css';
 
 const ProductItem = (props) => {
@@ -17,7 +19,7 @@ const ProductItem = (props) => {
             </Link>
         </div>
     </div>
+    
   )
 }
-
 export default ProductItem
