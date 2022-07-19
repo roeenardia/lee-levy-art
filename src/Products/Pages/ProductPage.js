@@ -11,7 +11,7 @@ const ProductPage = () => {
     const [product, SetProduct] = useState(null);
     useEffect(() => {
         console.log(ProductsData)
-        let product = ProductsData.find(item => item.id === id)
+        let product = ProductsData.find(item => item.id == id)
         console.log(product)
         SetProduct(product);
     },[])
