@@ -6,6 +6,7 @@ import ProductPage from "./Products/Pages/ProductPage";
 import Header from "./Shared/Header/Header";
 import Footer from "./Shared/Footer/Footer";
 import Contatct from "./Shared/Footer/Contact/Contatct";
+import UpdateProduct from "./Products/Pages/UpdateProduct";
 
 
 
@@ -16,6 +17,8 @@ const App = () => {
       <Header />
       <Switch>
         <Route path="/" exact> <Products /> </Route>
+
+        <Route path="/update-product/:id" exact> <UpdateProduct /> </Route>
 
         <Route path= "/:id/:productName" exact> <ProductPage /> </Route>
 

@@ -1,39 +1,15 @@
 import React from 'react';
-import { useCallback, useReducer } from 'react';
 import Button from '../../Shared/FormElements/Button';
 import Input from '../../Shared/FormElements/Input';
 import { VALIDATOR_REQUIRE } from '../../Shared/util/validators';
+import { useForm } from '../../Shared/Hooks/Form-Hook';
 import './NewProduct.css';
 
-const formReducer = (state, action) =>{
-  switch(action.type){
-    case 'INPUT_CHANGE':
-      let formIsValid = true;
-      for(const inputId in state.inputs){
-        if(inputId === action.inputId){
-          formIsValid = formIsValid && action.isValid;
-        } else{
-          formIsValid = formIsValid && state.inputs[inputId].isValid;
-        }
-      }
-      return {
-        ...state,
-        inputs:{
-          ...state.inputs,
-          [action.inputId]: {value: action.value, isValid: action.isValid}
-        },
-        isValid: formIsValid
-      };
-    
-    default:
-      return state;
-  }
-};
 
 const NewProduct = () => {
 
-  const [formState, dispatch] = useReducer(formReducer, {
-    inputs: {
+  const [formState, inputHandler] = useForm(
+    {
       name:{
         value: '',
         isValid: false
@@ -43,12 +19,9 @@ const NewProduct = () => {
         isValid: false
       }
     },
-    isValid: false
-  });
+    false
+  );
 
-  const inputHandler = useCallback((id, value, isValid) =>{
-    dispatch({type: 'INPUT_CHANGE', value: value, isValid: isValid, inputId: id})
-  }, []);
 
   const productSubmitHandler = (event) =>{
     event.preventDefault();
