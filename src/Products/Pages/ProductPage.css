@@ -1,0 +1,7 @@
+.product-page {
+  display: flex;
+  justify-content: flex-end;
+  text-align: center;
+  padding-right: 15%;
+  padding-top: 7%;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Button from '../../Shared/FormElements/Button';
 
 import './ProductItem.css';
 
@@ -16,6 +17,7 @@ const ProductItem = (props) => {
                 <h3>{props.price}</h3>
             </div>
             </Link>
+            <Button>הוסף לעגלה</Button>
         </div>
       </div>
     
