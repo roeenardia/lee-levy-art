@@ -1,10 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../Shared/FormElements/Button';
+import { AuthContext } from '../../Shared/Context/auth-context';
 
 import './ProductItem.css';
 
 const ProductItem = (props) => {
+
+  const auth = useContext(AuthContext);
+
+  const deleteHandler = () =>{
+    console.log('DELETING...')
+  }
+
   return (   
       <div className='product-item'>
         <div className='product-item_content'>
@@ -17,7 +25,9 @@ const ProductItem = (props) => {
                 <h3>{props.price}</h3>
             </div>
             </Link>
-            <Button>הוסף לעגלה</Button>
+            {auth.isLoggedIn && <Link to={`/update-product/${props.id}`}> <Button>Edit</Button> </Link>}
+            {!auth.isLoggedIn && <Button>הוסף לעגלה</Button> }
+            {auth.isLoggedIn && <Button danger onClick={deleteHandler}>Delete</Button> }
         </div>
       </div>
     

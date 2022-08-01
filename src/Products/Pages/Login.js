@@ -3,12 +3,15 @@ import Input from '../../Shared/FormElements/Input';
 import Button from '../../Shared/FormElements/Button';
 import { VALIDATOR_REQUIRE } from '../../Shared/util/validators';
 import { useForm } from '../../Shared/Hooks/Form-Hook';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../../Shared/Context/auth-context';
+import { Link, Redirect } from 'react-router-dom';
 
 //const adminUser = {userName: 'roeen', password: 'roee123'}
 
 const Login = () => {
 
+    const auth = useContext(AuthContext);
 
     const [formState, inputHandler] = useForm ({
         userName:{
@@ -26,6 +29,7 @@ const Login = () => {
     const loginSubmitHandler = (event) =>{
         event.preventDefault();
         console.log(formState.inputs);
+        auth.login();       
     }
 
   return (

@@ -24,12 +24,37 @@ const App = () => {
     SetIsLoggedIn(false);
   }, []);
 
+  let routes;
+  if(isLoggedIn){
+    routes = (
+      <Switch>
+        <Route path="/" exact> <Products /> </Route>
+        <Route path="/update-product/:id" exact> <UpdateProduct /> </Route>
+        <Route path= "/:id/:productName" exact> <ProductPage /> </Route>
+        <Route path="/new-product" exact> <NewProduct /> </Route>
+        <Route path="/admin" exact> <Admin /> </Route>
+        <Route path="/contact" exact> <Contatct /> </Route>
+        <Redirect to="/admin"/>
+      </Switch>
+    );
+  } else {
+    routes =(
+      <Switch>
+      <Route path="/" exact> <Products /> </Route>
+      <Route path= "/:id/:productName" exact> <ProductPage /> </Route>
+      <Route path="/login" exact> <Login /> </Route>
+      <Route path="/contact" exact> <Contatct /> </Route>
+      <Redirect to="/"/>
+      </Switch>
+    );
+  }
+
   return (
     <AuthContext.Provider value={{isLoggedIn: isLoggedIn, login: login, logout: logout}}>
     <Router>
       <Header />
-      <Switch>
-        <Route path="/" exact> <Products /> </Route>
+      {/* <Switch> */}
+        {/* <Route path="/" exact> <Products /> </Route>
 
         <Route path="/update-product/:id" exact> <UpdateProduct /> </Route>
 
@@ -39,11 +64,13 @@ const App = () => {
 
         <Route path="/login" exact> <Login /> </Route>
 
+        <Route path="/admin" exact> <Admin /> </Route>
+
         <Route path="/contact" exact> <Contatct /> </Route>
 
-        <Redirect to="/"/>
-
-      </Switch>
+        <Redirect to="/"/> */}
+        {routes}
+      {/* </Switch> */}
       <Footer />
     </Router>
     </AuthContext.Provider>
