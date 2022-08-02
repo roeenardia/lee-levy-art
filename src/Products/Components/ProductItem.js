@@ -9,6 +9,25 @@ const ProductItem = (props) => {
 
   const auth = useContext(AuthContext);
 
+  let product = {
+    id: props.id,
+    name: props.name,
+    price: props.price,
+    image: props.image
+  };
+  let cart = [];
+
+  const AddToCart = () =>{
+    if(localStorage.getItem('cart')){
+      cart = JSON.parse(localStorage.getItem('cart'));
+    }
+    cart.push({'productId': product.id, 'productName': product.name, 'productPrice': product.price, 'image': product.image});
+    localStorage.setItem('cart', JSON.stringify(cart));
+    console.log(product);
+  }
+
+  
+
   const deleteHandler = () =>{
     console.log('DELETING...')
   }
@@ -26,7 +45,7 @@ const ProductItem = (props) => {
             </div>
             </Link>
             {auth.isLoggedIn && <Link to={`/update-product/${props.id}`}> <Button>Edit</Button> </Link>}
-            {!auth.isLoggedIn && <Button>הוסף לעגלה</Button> }
+            {!auth.isLoggedIn && <Button onClick={AddToCart}>הוסף לעגלה</Button> }
             {auth.isLoggedIn && <Button danger onClick={deleteHandler}>Delete</Button> }
         </div>
       </div>

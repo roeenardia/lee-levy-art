@@ -9,6 +9,7 @@ import Contatct from "./Shared/Footer/Contact/Contatct";
 import UpdateProduct from "./Products/Pages/UpdateProduct";
 import Admin from "./Admin/Admin";
 import Login from "./Products/Pages/Login";
+import Cart from "./Cart/Cart";
 import { AuthContext } from "./Shared/Context/auth-context";
 
 
@@ -43,6 +44,7 @@ const App = () => {
       <Route path="/" exact> <Products /> </Route>
       <Route path= "/:id/:productName" exact> <ProductPage /> </Route>
       <Route path="/login" exact> <Login /> </Route>
+      <Route path="/cart" exact> <Cart /> </Route>
       <Route path="/contact" exact> <Contatct /> </Route>
       <Redirect to="/"/>
       </Switch>
