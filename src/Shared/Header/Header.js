@@ -13,7 +13,7 @@ const Header = () => {
     <div className='header'>
       <div>
           {auth.isLoggedIn && <button onClick={auth.logout}>LOG OUT</button>}
-          <div className='cart'>עגלה</div>
+          <Link to="/cart"> <div className='cart'>עגלה</div> </Link>
       </div>
       <Link to="/">
         <div className='lee-levy'>Lee Levy</div>

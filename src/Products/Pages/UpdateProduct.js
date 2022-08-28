@@ -29,7 +29,7 @@ const UpdateProduct = () => {
     }, false);
 
     let idinifiProduct = ProductsData.find(p => p.id == id);
-    //console.log(idinifiProduct);
+    console.log(idinifiProduct);
     useEffect(() => {
         if(idinifiProduct){
             setFormData({

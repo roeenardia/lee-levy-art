@@ -1,26 +1,24 @@
 import React, {useState} from 'react';
 
-const CART = 'cart';
 const Cart = () => {
     //let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const [cartProducts, SetCartProducts] = useState(JSON.parse(localStorage.getItem(CART) || '[]'));
-    console.log(cartProducts);
+    var [cartItems, SetCartItems] = useState(JSON.parse(localStorage.getItem('cart') || '[]'));
+    //console.log(cartProducts);
 
-    const SetCartItems = (products) =>{
-        localStorage.setItem(CART, JSON.stringify(products))
-        SetCartItems(products);
+    const SetCartProducts = (product) =>{
+        localStorage.setItem('cart', JSON.stringify(product))
+        SetCartItems(product);       
     }
 
-    const RemoveProduct = (product) =>{
-        SetCartItems(cartProducts.filter((x) => x.id !== product.id));
+    const RemoveProduct = (product) =>{ 
+        SetCartProducts(cartItems.filter(x => x.id !== product.id));
     }
 
   return (
-    <div>
-    
+    <div>   
     <div>
         
-        {cartProducts.map((product, index) =>{
+        {cartItems.map((product, index) =>{
             return(
                 <div key ={index}>
                     <span> {product.productName}</span><br/>
