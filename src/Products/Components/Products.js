@@ -2,15 +2,15 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import ProductsList from '../Components/ProductsList';
 import LoadingSpinner from '../../Shared/UIElements/LoadingSpinner';
+import { useHttpClient } from '../../Shared/Hooks/http-hook';
 
-const Products = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+const Products = (props) => {
   const [loadedProducts, setLoadedProducts] = useState();
-
+  const {isLoading, error, sendRequest, clearError} = useHttpClient();
+  
   useEffect(() => {
     const sendRequest = async () => {
-      setIsLoading(true);
+      
       try {
       const response = await fetch('http://localhost:5000/');
       const responseData = await response.json();
@@ -20,24 +20,23 @@ const Products = () => {
         }
 
       setLoadedProducts(responseData.products);
-      setIsLoading(false);
-      } catch (err) {
-        setError(err.message);
-      }
-      setIsLoading(false);
-      
+      } catch (err) {}   
     };
     sendRequest();
   }, []);
 
-  const errorHandler = () =>{
-    setError(null);
+  
+
+  const productDeletedHandler = (deletedProductId) =>{
+    setLoadedProducts(prevProduct => prevProduct.filter(product => product.id !== deletedProductId));
   };
+
+
 
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner  asOverlay/>}
-    {!isLoading && loadedProducts && <ProductsList items={loadedProducts}/>}
+    {!isLoading && loadedProducts && <ProductsList items={loadedProducts} onDelete={productDeletedHandler}/>}
     </React.Fragment>
   )
 }

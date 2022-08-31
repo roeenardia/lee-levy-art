@@ -2,7 +2,10 @@ import React from 'react';
 import ProductItem from './ProductItem';
 import './ProductItem.css';
 
+
 const ProductsList = (props) => {
+
+
   return (
     <div className='product-grid'>
         {props.items.map((product) =>{
@@ -11,7 +14,8 @@ const ProductsList = (props) => {
                 id={product.id} 
                 name={product.name} 
                 image={product.image}
-                price={product.price}/>
+                price={product.price}
+                onDelete={props.onDelete}/>
         })}
     </div>
   )

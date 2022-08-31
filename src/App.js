@@ -31,7 +31,7 @@ const App = () => {
       <Switch>
         <Route path="/" exact> <Products /> </Route>
         <Route path="/update-product/:id" exact> <UpdateProduct /> </Route>
-        <Route path= "/:id/:productName" exact> <ProductPage /> </Route>
+        <Route path= "/product/:id" exact> <ProductPage /> </Route>
         <Route path="/new-product" exact> <NewProduct /> </Route>
         <Route path="/admin" exact> <Admin /> </Route>
         <Route path="/contact" exact> <Contatct /> </Route>
@@ -42,7 +42,7 @@ const App = () => {
     routes =(
       <Switch>
       <Route path="/" exact> <Products /> </Route>
-      <Route path= "/:id/:productName" exact> <ProductPage /> </Route>
+      <Route path= "/product/:id" exact> <ProductPage /> </Route>
       <Route path="/login" exact> <Login /> </Route>
       <Route path="/cart" exact> <Cart /> </Route>
       <Route path="/contact" exact> <Contatct /> </Route>

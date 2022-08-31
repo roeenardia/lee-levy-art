@@ -1,17 +1,20 @@
 import React, {useState} from 'react';
+import { useParams } from 'react-router-dom';
 
 const Cart = () => {
     //let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    var [cartItems, SetCartItems] = useState(JSON.parse(localStorage.getItem('cart') || '[]'));
+    let [cartItems, SetCartItems] = useState(JSON.parse(localStorage.getItem('cart') || []));
+    let {id} = useParams();
+    
     //console.log(cartProducts);
-
     const SetCartProducts = (product) =>{
+        console.log(product)
         localStorage.setItem('cart', JSON.stringify(product))
         SetCartItems(product);       
     }
 
     const RemoveProduct = (product) =>{ 
-        SetCartProducts(cartItems.filter(x => x.id !== product.id));
+       
     }
 
   return (

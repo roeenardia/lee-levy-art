@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Button from '../../Shared/FormElements/Button';
 import Input from '../../Shared/FormElements/Input';
 import { VALIDATOR_REQUIRE } from '../../Shared/util/validators';
@@ -28,6 +28,7 @@ const NewProduct = () => {
     false
   );
 
+    const history = useHistory();
 
   const productSubmitHandler = async (event) =>{
     event.preventDefault();
@@ -49,6 +50,7 @@ const NewProduct = () => {
             throw new Error(responseData.message);
         }
         setIsLoading(false); 
+        history.push('/');
     } catch (err) {
       console.log(err);
             setIsLoading(false); 
@@ -60,8 +62,8 @@ const NewProduct = () => {
 
   return (
     <React.Fragment>
-      {isLoading && <LoadingSpinner asOverlay/>}
     <form className='product-form' onSubmit={productSubmitHandler}>
+      {isLoading && <LoadingSpinner asOverlay/>}
       <Input
         id="name" 
         element="input" 

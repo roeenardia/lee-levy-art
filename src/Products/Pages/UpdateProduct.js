@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import {ProductsData} from '../../ProductsData';
 import Input from '../../Shared/FormElements/Input';
 import Button from '../../Shared/FormElements/Button';
 import {VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../../Shared/util/validators';
 import { useForm } from '../../Shared/Hooks/Form-Hook';
+import { useHttpClient } from '../../Shared/Hooks/http-hook';
+import LoadingSpinner from '../../Shared/UIElements/LoadingSpinner';
 
 
 const UpdateProduct = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    const {isLoading, error, sendRequest, clearError} = useHttpClient();
+    const [loadedProduct, setLoadedProduct] = useState();
+    const history = useHistory();
     let {id} = useParams();
-    // const [product, SetProduct] = useState(null);
-    // useEffect(() => {
-    //     let product = ProductsData.find(p => p.id == id);
-    //     console.log(product);
-    //     SetProduct(product);
-    // },[])
-    //let idinifiProduct = ProductsData.find(p => p.id == id);
     const [formState, inputHandler, setFormData] = useForm({
         name:{
             value: "",
@@ -28,30 +25,57 @@ const UpdateProduct = () => {
         }
     }, false);
 
-    let idinifiProduct = ProductsData.find(p => p.id == id);
-    console.log(idinifiProduct);
     useEffect(() => {
-        if(idinifiProduct){
-            setFormData({
+        const fetchProduct = async () => {
+            try {
+                const responseData = await sendRequest(`http://localhost:5000/product/${id}`);
+               setLoadedProduct(responseData.product);
+               setFormData({
                 name:{
-                    value: idinifiProduct.name,
+                    value: responseData.product.name,
                     isValid: true
                 },
                 price:{
-                    value: idinifiProduct.price,
+                    value: responseData.product.price,
                     isValid: true
             }}, true);
-        }
-        setIsLoading(false);
-    }, [setFormData, idinifiProduct]);
+            } catch (err) {
+                
+            }
+
+        };
+        fetchProduct();
+    }, [sendRequest, id, setFormData]);
+
+    console.log(loadedProduct);
+        //setIsLoading(false);
     
 
-    const productUpdateSubmitHandler = (event) =>{
+    const productUpdateSubmitHandler = async (event) =>{
         event.preventDefault();
-        console.log(formState.inputs);
+        try {
+            await sendRequest(`http://localhost:5000/product/${id}`, 'PATCH', JSON.stringify({
+            name: formState.inputs.name.value,
+            price: formState.inputs.price.value
+        }),{
+            'Content-Type': 'application/json'
+        });
+        history.push('/');
+        } catch (err) {
+            
+        }
+        
     };
 
-    if(!idinifiProduct){
+    if (isLoading){
+        return(
+            <div>
+                <LoadingSpinner />
+            </div>
+        )
+    }
+
+    if(!loadedProduct && !error){
         return(
             <div>
                 <h2>Could not find product</h2>
@@ -59,13 +83,6 @@ const UpdateProduct = () => {
         )
     }
 
-    if (isLoading){
-        return(
-            <div>
-                <h2>Loading...</h2>
-            </div>
-        )
-    }
 
   return (  
     <form onSubmit={productUpdateSubmitHandler}>
