@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import {ProductsData} from '../../ProductsData';
 import Input from '../../Shared/FormElements/Input';
 import Button from '../../Shared/FormElements/Button';
-import {VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../../Shared/util/validators';
+import {VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH, VALIDATOR_FILE } from '../../Shared/util/validators';
 import { useForm } from '../../Shared/Hooks/Form-Hook';
 import { useHttpClient } from '../../Shared/Hooks/http-hook';
 import LoadingSpinner from '../../Shared/UIElements/LoadingSpinner';
@@ -22,6 +22,10 @@ const UpdateProduct = () => {
         price:{
             value: "",
             isValid: false
+        },
+        image:{
+            value: "",
+            isValid: false
         }
     }, false);
 
@@ -38,7 +42,12 @@ const UpdateProduct = () => {
                 price:{
                     value: responseData.product.price,
                     isValid: true
-            }}, true);
+                },
+                image:{
+                    value:responseData.product.image,
+                    isValid: true
+                }    
+            }, true);
             } catch (err) {
                 
             }
@@ -47,7 +56,7 @@ const UpdateProduct = () => {
         fetchProduct();
     }, [sendRequest, id, setFormData]);
 
-    console.log(loadedProduct);
+    //console.log(loadedProduct);
         //setIsLoading(false);
     
 
@@ -56,7 +65,8 @@ const UpdateProduct = () => {
         try {
             await sendRequest(`http://localhost:5000/product/${id}`, 'PATCH', JSON.stringify({
             name: formState.inputs.name.value,
-            price: formState.inputs.price.value
+            price: formState.inputs.price.value,
+            image: formState.inputs.image.value
         }),{
             'Content-Type': 'application/json'
         });
@@ -107,6 +117,17 @@ const UpdateProduct = () => {
             onInput={inputHandler}
             initialVlaue={formState.inputs.price.value}
             initialValid={formState.inputs.price.isValid}/>
+
+        {/* <Input  
+            id="image" 
+            element="input" 
+            type="file" 
+            label="Product Image" 
+            validators={[VALIDATOR_FILE()]}
+            errorText="Please choose an image."
+            onInput={inputHandler}
+            initialVlaue={formState.inputs.image.value}
+            initialValid={formState.inputs.image.isValid}/> */}
 
         <Button type="submit" disabled={!formState.isValid}>UPDATE PRODUCT</Button>
     </form>

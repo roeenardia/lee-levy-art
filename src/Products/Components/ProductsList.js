@@ -5,7 +5,6 @@ import './ProductItem.css';
 
 const ProductsList = (props) => {
 
-
   return (
     <div className='product-grid'>
         {props.items.map((product) =>{

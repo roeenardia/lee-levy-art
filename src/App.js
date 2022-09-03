@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom
 import Products from "./Products/Components/Products";
 import NewProduct from "./Products/Pages/NewProduct";
 import ProductPage from "./Products/Pages/ProductPage";
+import Messages from "./Products/Components/Messages";
 import Header from "./Shared/Header/Header";
 import Footer from "./Shared/Footer/Footer";
 import Contatct from "./Shared/Footer/Contact/Contatct";
@@ -34,6 +35,7 @@ const App = () => {
         <Route path= "/product/:id" exact> <ProductPage /> </Route>
         <Route path="/new-product" exact> <NewProduct /> </Route>
         <Route path="/admin" exact> <Admin /> </Route>
+        <Route path="/messages" exact> <Messages/> </Route>
         <Route path="/contact" exact> <Contatct /> </Route>
         <Redirect to="/admin"/>
       </Switch>

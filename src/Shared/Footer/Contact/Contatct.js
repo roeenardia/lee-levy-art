@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Input from '../../FormElements/Input';
 import Button from '../../FormElements/Button';
+import LoadingSpinner from '../../UIElements/LoadingSpinner';
 import { useForm } from '../../Hooks/Form-Hook';
 import { VALIDATOR_EMAIL, VALIDATOR_REQUIRE } from '../../util/validators';
 
 
 const Contatct = () => {
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
   const [formState, inputHandler] = useForm(
     {
       name:{
@@ -25,13 +30,42 @@ const Contatct = () => {
     false
   );
 
-  const contactSubmitHandler = (event) =>{
+  const history = useHistory();
+
+  const contactSubmitHandler = async (event) =>{
     event.preventDefault();
-    console.log(formState.inputs); // ****** send to backend *******
+    try {
+      setIsLoading(true);
+      const response = await fetch('http://localhost:5000/contact',{
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formState.inputs.name.value,
+          email: formState.inputs.email.value,
+          message: formState.inputs.message.value
+        })
+      });
+      const responseData = await response.json();
+      if(!response.ok){
+        throw new Error(responseData.message);
+      }
+      setIsLoading(false);
+      alert('!הודעה נשלחה בהצלחה');
+      history.push('/');
+    } catch (err) {
+      console.log(err)
+      setIsLoading(false);
+      setError(err.message || 'Something went wrong, please try again');
+      alert(err.message);
+    }
   }
 
   return (
+    <React.Fragment>
     <form onSubmit={contactSubmitHandler}>
+      {isLoading && <LoadingSpinner asOverlay/>}
       <Input 
       id="name"
       element="input"
@@ -52,7 +86,7 @@ const Contatct = () => {
       
       <Input 
       id="message"
-      element="input"
+      element="textarea"
       type="text"
       label="Message"
       validators={[VALIDATOR_REQUIRE]}
@@ -61,6 +95,7 @@ const Contatct = () => {
 
       <Button type="submit" disabled={!formState.isValid}>Send Message</Button>
     </form>
+    </React.Fragment>
   )
 }
 

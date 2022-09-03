@@ -7,7 +7,7 @@ const Admin = () => {
     <div>
       <Link to="/"><Button>Edit/Delete Products</Button></Link>
       <Link to="/new-product"><Button>Add New Product</Button></Link>
-      <Button>Show Messages</Button>
+      <Link to="/messages"> <Button>Show Messages</Button> </Link>
     </div>
   )
 }
