@@ -13,21 +13,15 @@ const ProductItem = (props) => {
   const auth = useContext(AuthContext);
   const [loadedProduct, setLoadedProduct] = useState();
   const {isLoading, error, sendRequest, clearError} = useHttpClient();
-  let [cartItems, SetCartItems] = useState([]);
-  
-   const product = {
-     id: props.id,
-     name: props.name,
-     price: props.price,
-     image: props.image
-   };
+  var [cartItems, SetCartItems] = useState([]);
 
-  const AddToCart = () =>{
+  const AddToCart = (props) =>{
     if(localStorage.getItem('cart')){
       cartItems = JSON.parse(localStorage.getItem('cart'));
     }
     cartItems.push({'id': props.id, 'productName': props.name, 'productPrice': props.price, 'image': props.image});
     localStorage.setItem('cart', JSON.stringify(cartItems));
+    console.log(props)
   }
 
 
@@ -46,7 +40,7 @@ const ProductItem = (props) => {
           {isLoading && <LoadingSpinner asOverlay/>}
             <Link to={`/product/${props.id}`}>
             <div className='product-item_image'>
-                <img src={props.image} alt={props.name}/>
+                <img src={`http://localhost:5000/${props.image}`} alt={props.name}/>
             </div>
             <div className='product-item_info'>
                 <h2>{props.name}</h2>

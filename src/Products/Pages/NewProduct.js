@@ -6,6 +6,7 @@ import Input from '../../Shared/FormElements/Input';
 import { VALIDATOR_FILE, VALIDATOR_REQUIRE } from '../../Shared/util/validators';
 import { useForm } from '../../Shared/Hooks/Form-Hook';
 import LoadingSpinner from '../../Shared/UIElements/LoadingSpinner';
+import ImageUpload from '../../Shared/FormElements/ImageUpload';
 import './NewProduct.css';
 
 
@@ -87,14 +88,10 @@ const NewProduct = () => {
         errorText="Please enter a vaild price"
         onInput={inputHandler}/>
 
-        <Input
+        <ImageUpload 
         id="image"
-        element="input"
-        type="file"
-        label="Product Image"
-        validators={[VALIDATOR_FILE()]}
-        errorText="please choose an image"
-        onInput={inputHandler}/>
+        onInput={inputHandler}
+        errorText="Please pick an image."/>
 
       <Button type="submit" disabled={!formState.isValid}>ADD PRODUCT</Button>
     </form>
