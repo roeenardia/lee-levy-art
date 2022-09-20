@@ -1,0 +1,14 @@
+.cart-title {
+  text-align: center;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 3%;
+}
+
+.cart-item img {
+  width: 10%;
+}
