@@ -1,42 +1,62 @@
 import React, { useState } from "react";
+import CartIsEmpty from "./CartIsEmpty";
 import Button from "../Shared/FormElements/Button";
+import secureLocalStorage from "react-secure-storage";
 import "./Cart.css";
 
 const Cart = () => {
-  //let cart = JSON.parse(localStorage.getItem('cart') || '[]');
   var [cartItems, SetCartItems] = useState(
-    JSON.parse(localStorage.getItem("cart") || "[]")
+    JSON.parse(secureLocalStorage.getItem("cart") || "[]")
   );
-  //var [cartItems, SetCartItems] = useState([]);
 
-  //console.log(cartProducts);
   const SetCartProducts = (product) => {
-    localStorage.setItem("cart", JSON.stringify(product));
+    secureLocalStorage.setItem("cart", JSON.stringify(product));
     SetCartItems(product);
   };
 
   const RemoveProduct = (product) => {
     SetCartProducts(cartItems.filter((x) => x.id !== product.id));
   };
+  let sum = cartItems.reduce((value, object) => {
+    return value + object.productPrice;
+  }, 0);
+
+  let countItems = 0;
+  for (const obj of cartItems) {
+    countItems++;
+  }
 
   return (
-    <div>
-      <h2 className="cart-title">סל קניות</h2>
+    <React.Fragment>
       <div>
-        {cartItems.map((product, index) => {
-          return (
-            <div key={index} className="cart-item">
-              <img src={product.image.url} />
-              <span> {product.productName}</span>
-              <span>{product.productPrice}</span>
-              <Button danger onClick={() => RemoveProduct(product)}>
-                X
-              </Button>
-            </div>
-          );
-        })}
+        <h2 className="cart-title">סל קניות</h2>
+        <span className="fade-line"></span>
+        <div className="cart-summery">
+          סיכום הזמנה
+          <span className="cart-sum-items">{countItems} :כמות מוצרים</span>
+          <span className="cart-sum-price">{sum} :סה"כ הזמנה</span>
+          <button className="proceed">המשך לתשלום</button>
+        </div>
+        <div className="cart-window">
+          {cartItems.length == 0 && <CartIsEmpty />}
+          {cartItems.map((product, index) => {
+            return (
+              <div>
+                <div key={index} className="cart-item">
+                  <Button danger onClick={() => RemoveProduct(product)}>
+                    X
+                  </Button>
+                  <span>{product.productPrice}</span>
+                  <span> {product.productName}</span>
+                  <img src={product.image.url} />
+                </div>
+                <span className="fade-line"></span>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 

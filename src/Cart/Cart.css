@@ -1,14 +1,58 @@
+.empy-cart {
+  text-align: center;
+  padding: 100px;
+}
+
 .cart-title {
   text-align: center;
+}
+
+.cart-window {
+  margin-left: 15%;
 }
 
 .cart-item {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: 3%;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .cart-item img {
   width: 10%;
+}
+
+.fade-line {
+  display: block;
+  border: none;
+  color: white;
+  height: 1px;
+  background: black;
+  background: -webkit-gradient(
+    radial,
+    50% 50%,
+    0,
+    50% 50%,
+    350,
+    from(#000),
+    to(#fff)
+  );
+}
+
+.cart-summery {
+  display: grid;
+  width: 15%;
+  text-align: center;
+  border: 1px solid;
+  float: left;
+  height: 280px;
+  align-items: end;
+  align-content: space-between;
+}
+
+.proceed {
+  max-width: 100%;
+  height: 50px;
+  justify-content: center;
 }

@@ -15,4 +15,5 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   text-align: center;
+  align-items: flex-end;
 }

@@ -5,6 +5,7 @@ import Button from "../../Shared/FormElements/Button";
 import LoadingSpinner from "../../Shared/UIElements/LoadingSpinner";
 import { AuthContext } from "../../Shared/Context/auth-context";
 import { useHttpClient } from "../../Shared/Hooks/http-hook";
+import secureLocalStorage from "react-secure-storage";
 import "./ProductItem.css";
 
 const ProductItem = (props) => {
@@ -13,8 +14,8 @@ const ProductItem = (props) => {
   var [cartItems, SetCartItems] = useState([]);
 
   const AddToCart = (props) => {
-    if (localStorage.getItem("cart")) {
-      cartItems = JSON.parse(localStorage.getItem("cart"));
+    if (secureLocalStorage.getItem("cart")) {
+      cartItems = JSON.parse(secureLocalStorage.getItem("cart"));
     }
     cartItems.push({
       id: props.id,
@@ -22,7 +23,7 @@ const ProductItem = (props) => {
       productPrice: props.price,
       image: props.image,
     });
-    localStorage.setItem("cart", JSON.stringify(cartItems));
+    secureLocalStorage.setItem("cart", JSON.stringify(cartItems));
     console.log(props);
   };
 
@@ -32,8 +33,6 @@ const ProductItem = (props) => {
       props.onDelete(props.id);
     } catch (err) {}
   };
-
-  // console.log("ProductItem", props.photos);
 
   return (
     <div className="product-item">

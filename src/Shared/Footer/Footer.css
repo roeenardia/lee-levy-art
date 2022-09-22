@@ -17,7 +17,14 @@
   font-size: 30px;
 }
 
+.contact a,
+.about a {
+  text-decoration: none;
+  color: black;
+}
+
 .facebook,
 .instagram {
   padding-top: 40%;
+  font-size: xx-large;
 }
