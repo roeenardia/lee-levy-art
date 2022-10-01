@@ -5,3 +5,14 @@
   padding-right: 15%;
   padding-top: 7%;
 }
+
+.product-page-item {
+}
+
+.main-image img {
+  width: 400px;
+}
+
+.second-image img {
+  width: 200px;
+}

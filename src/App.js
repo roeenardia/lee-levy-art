@@ -16,6 +16,7 @@ import UpdateProduct from "./Products/Pages/UpdateProduct";
 import Admin from "./Admin/Admin";
 import Login from "./Products/Pages/Login";
 import Cart from "./Cart/Cart";
+import Checkout from "./Cart/Checkout";
 import { AuthContext } from "./Shared/Context/auth-context";
 
 const App = () => {
@@ -84,6 +85,9 @@ const App = () => {
         <Route path="/cart" exact>
           {" "}
           <Cart />{" "}
+        </Route>
+        <Route path="/checkout" exact>
+          <Checkout />
         </Route>
         <Route path="/contact" exact>
           {" "}

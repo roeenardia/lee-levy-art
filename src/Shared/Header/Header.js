@@ -23,7 +23,7 @@ const Header = () => {
         <Link to="/cart">
           {" "}
           <div className="cart">
-            {countItems}
+            {/* {countItems} */}
             <Cart3 />
           </div>{" "}
         </Link>

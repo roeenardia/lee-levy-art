@@ -13,6 +13,11 @@ const ProductsList = (props) => {
             name={product.name}
             image={product.image}
             photos={product.photos}
+            // photos={[
+            //   product.photos.map((photo, key) => {
+            //     return (key = { photo }), (photo = { photo });
+            //   }),
+            // ]}
             price={product.price}
             onDelete={props.onDelete}
           />

@@ -1,4 +1,4 @@
-.contact-form {
+.checkout-form {
   list-style: none;
   margin: 0 auto;
   padding: 1rem;
@@ -10,16 +10,21 @@
   text-align: center;
 }
 
-.contact-form input,
-.contact-form textarea {
+.checkout-form button {
+  width: 50%;
+}
+
+.checkout-form input {
+  border-radius: 11px;
   direction: rtl;
 }
 
-.contact-form label {
+.checkout-form label {
   float: right;
   font-family: sans-serif;
 }
 
-.contact-form button {
-  width: 50%;
+.year-month {
+  display: flex;
+  justify-content: space-between;
 }

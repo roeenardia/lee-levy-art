@@ -10,7 +10,7 @@ function Footer() {
       <div className="footer">
         <div className="footer-container">
           <div className="contact">
-            <Link to="/contact">CONTACT</Link>
+            <Link to="/contact">צור קשר</Link>
           </div>
           <div className="facebook">
             <Facebook />

@@ -2,18 +2,16 @@
   width: 400px;
 }
 
-/* .product-grid {
+.product-grid {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 60%;
-  gap: 20px 0px;
+  grid-template-rows: 50%;
+  gap: 70px 0px;
   grid-template-areas: ". .";
-} */
-.product-grid {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  margin-top: 5%;
+  align-items: end;
+}
+
+.product-item {
   text-align: center;
-  align-items: flex-end;
 }

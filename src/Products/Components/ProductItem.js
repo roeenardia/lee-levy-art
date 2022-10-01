@@ -10,6 +10,7 @@ import "./ProductItem.css";
 
 const ProductItem = (props) => {
   const auth = useContext(AuthContext);
+
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   var [cartItems, SetCartItems] = useState([]);
 
@@ -17,14 +18,26 @@ const ProductItem = (props) => {
     if (secureLocalStorage.getItem("cart")) {
       cartItems = JSON.parse(secureLocalStorage.getItem("cart"));
     }
+
     cartItems.push({
       id: props.id,
       productName: props.name,
       productPrice: props.price,
       image: props.image,
     });
+
+    var vlaueCart = cartItems.map(function (item) {
+      return item.id;
+    });
+    var isDup = vlaueCart.some(function (item, idx) {
+      return vlaueCart.indexOf(item) != idx;
+    });
+    if (isDup) {
+      alert("מוצר זה כבר בסל הקניות שלך");
+      return;
+    }
     secureLocalStorage.setItem("cart", JSON.stringify(cartItems));
-    console.log(props);
+    alert("מוצר נוסף לסל");
   };
 
   const deleteHandler = async () => {
@@ -34,6 +47,8 @@ const ProductItem = (props) => {
     } catch (err) {}
   };
 
+  // console.log(props.photos[0].url);
+
   return (
     <div className="product-item">
       <div className="product-item_content">
@@ -41,7 +56,7 @@ const ProductItem = (props) => {
         <Link to={`/product/${props.id}`}>
           <div className="product-item_image">
             <img src={props.image.url} alt={props.name} />
-            {/* <img src={props.photos.url} alt={props.name} /> */}
+            {/* <img src={props.photos[0].url} alt={props.name} /> */}
           </div>
           <div className="product-item_info">
             <h2>{props.name}</h2>

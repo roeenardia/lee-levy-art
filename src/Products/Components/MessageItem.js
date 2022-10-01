@@ -15,9 +15,9 @@ function MessageItem(props) {
         <div className="message-item_content">
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="message-item_info">
-            <h3>Name: {props.name}</h3>
-            <h3>Email: {props.email}</h3>
-            <h3>Message: {props.message}</h3>
+            <h3>שם: {props.name}</h3>
+            <h3>מייל: {props.email}</h3>
+            <h3>הודעה: {props.message}</h3>
           </div>
         </div>
       </div>

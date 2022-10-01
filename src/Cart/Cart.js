@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import CartIsEmpty from "./CartIsEmpty";
 import Button from "../Shared/FormElements/Button";
 import secureLocalStorage from "react-secure-storage";
@@ -35,10 +36,12 @@ const Cart = () => {
           סיכום הזמנה
           <span className="cart-sum-items">{countItems} :כמות מוצרים</span>
           <span className="cart-sum-price">{sum} :סה"כ הזמנה</span>
-          <button className="proceed">המשך לתשלום</button>
+          <Link to="/checkout">
+            <Button disabled={cartItems.length == 0}>המשך לתשלום</Button>
+          </Link>
         </div>
         <div className="cart-window">
-          {cartItems.length == 0 && <CartIsEmpty />}
+          {cartItems.length === 0 && <CartIsEmpty />}
           {cartItems.map((product, index) => {
             return (
               <div>
@@ -46,8 +49,8 @@ const Cart = () => {
                   <Button danger onClick={() => RemoveProduct(product)}>
                     X
                   </Button>
-                  <span>{product.productPrice}</span>
-                  <span> {product.productName}</span>
+                  <h3>₪{product.productPrice}</h3>
+                  <h3> {product.productName}</h3>
                   <img src={product.image.url} />
                 </div>
                 <span className="fade-line"></span>

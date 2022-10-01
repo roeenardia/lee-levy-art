@@ -69,7 +69,7 @@ const Contatct = () => {
           id="name"
           element="input"
           type="text"
-          label="Your Name"
+          label="שם"
           validators={[VALIDATOR_REQUIRE]}
           errorText="please enter your name"
           onInput={inputHandler}
@@ -79,7 +79,7 @@ const Contatct = () => {
           id="email"
           element="input"
           type="email"
-          label="Email"
+          label="מייל"
           validators={[VALIDATOR_REQUIRE, VALIDATOR_EMAIL]}
           errorText="please enter valid Email"
           onInput={inputHandler}
@@ -89,7 +89,7 @@ const Contatct = () => {
           id="message"
           element="textarea"
           type="text"
-          label="Message"
+          label="הודעה"
           validators={[VALIDATOR_REQUIRE]}
           errorText="please enter valid Message"
           onInput={inputHandler}

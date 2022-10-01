@@ -1,15 +1,26 @@
-import React from 'react';
-import Button from '../Shared/FormElements/Button';
-import { Link } from 'react-router-dom';
+import React from "react";
+import Button from "../Shared/FormElements/Button";
+import { Link } from "react-router-dom";
+import "./Admin.css";
 
 const Admin = () => {
   return (
-    <div>
-      <Link to="/"><Button>Edit/Delete Products</Button></Link>
-      <Link to="/new-product"><Button>Add New Product</Button></Link>
-      <Link to="/messages"> <Button>Show Messages</Button> </Link>
-    </div>
-  )
-}
+    <div className="admin">
+      <Link to="/">
+        <Button>עריכה/מחיקת מוצרים</Button>
+      </Link>
 
-export default Admin
+      <Link to="/new-product">
+        <Button>מוצר חדש</Button>
+      </Link>
+
+      <Link to="/messages">
+        <Button>הודעות</Button>
+      </Link>
+
+      <Button>היסטורית הזמנות</Button>
+    </div>
+  );
+};
+
+export default Admin;

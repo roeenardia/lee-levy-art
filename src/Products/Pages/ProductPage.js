@@ -7,7 +7,6 @@ import { useHttpClient } from "../../Shared/Hooks/http-hook";
 import "./ProductPage.css";
 
 const ProductPage = () => {
-  //const [product, SetProduct] = useState();
   const [isLoading, setIsLoading] = useState();
   const [loadedProducts, setLoadedProducts] = useState();
   let { id } = useParams();
@@ -28,32 +27,21 @@ const ProductPage = () => {
     sendRequest();
   }, []);
 
+  // console.log(loadedProducts.photos[0].url);
+
   if (loadedProducts != null) {
     return (
       <React.Fragment>
         {isLoading && <LoadingSpinner asOverlay />}
         <div className="product-page">
-          <p>
-            {" "}
-            33 x 49
-            <input type="checkbox" />{" "}
-          </p>
-          <p>
-            {" "}
-            29 x 42
-            <input type="checkbox" />{" "}
-          </p>
-          <ProductItem
-            id={loadedProducts.id}
-            name={loadedProducts.name}
-            price={loadedProducts.price}
-            image={loadedProducts.image}
-            photos={[
-              loadedProducts.photos.map((photo, key) => {
-                return (key = { photo });
-              }),
-            ]}
-          />
+          <div className="product-page-item">
+            <ProductItem
+              id={loadedProducts.id}
+              name={loadedProducts.name}
+              price={loadedProducts.price}
+              image={loadedProducts.image}
+            />
+          </div>
         </div>
       </React.Fragment>
     );

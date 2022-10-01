@@ -70,7 +70,7 @@ const Login = () => {
             id="userName"
             element="input"
             type="text"
-            label="User name"
+            label="שם משתמש"
             validators={[VALIDATOR_REQUIRE]}
             errorText="please enter a valid user name."
             onInput={inputHandler}
@@ -80,7 +80,7 @@ const Login = () => {
             id="password"
             element="input"
             type="text"
-            label="Password"
+            label="סיסמא"
             validators={[VALIDATOR_REQUIRE]}
             errorText="please enter a valid password."
             onInput={inputHandler}
