@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -18,6 +18,7 @@ import Login from "./Products/Pages/Login";
 import Cart from "./Cart/Cart";
 import Checkout from "./Cart/Checkout";
 import { AuthContext } from "./Shared/Context/auth-context";
+import secureLocalStorage from "react-secure-storage";
 
 const App = () => {
   const [isLoggedIn, SetIsLoggedIn] = useState(false);
@@ -28,42 +29,51 @@ const App = () => {
     setUserId(uid);
   }, []);
   const logout = useCallback(() => {
+    secureLocalStorage.removeItem("user");
     SetIsLoggedIn(false);
     setUserId(null);
   }, []);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(secureLocalStorage.getItem("user"));
+    if (storedUser) {
+      login();
+      SetIsLoggedIn(true);
+    }
+  }, [login]);
 
   let routes;
   if (isLoggedIn) {
     routes = (
       <Switch>
         <Route path="/" exact>
-          {" "}
-          <Products />{" "}
+          <Products />
         </Route>
+
         <Route path="/update-product/:id" exact>
-          {" "}
-          <UpdateProduct />{" "}
+          <UpdateProduct />
         </Route>
+
         <Route path="/product/:id" exact>
-          {" "}
-          <ProductPage />{" "}
+          <ProductPage />
         </Route>
+
         <Route path="/new-product" exact>
-          {" "}
-          <NewProduct />{" "}
+          <NewProduct />
         </Route>
+
         <Route path="/admin" exact>
-          {" "}
-          <Admin />{" "}
+          <Admin />
         </Route>
+
         <Route path="/messages" exact>
-          {" "}
-          <Messages />{" "}
+          <Messages />
         </Route>
+
         <Route path="/contact" exact>
-          {" "}
-          <Contatct />{" "}
+          <Contatct />
         </Route>
+
         <Redirect to="/admin" />
       </Switch>
     );
@@ -71,28 +81,29 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" exact>
-          {" "}
-          <Products />{" "}
+          <Products />
         </Route>
+
         <Route path="/product/:id" exact>
-          {" "}
-          <ProductPage />{" "}
+          <ProductPage />
         </Route>
+
         <Route path="/login" exact>
-          {" "}
-          <Login />{" "}
+          <Login />
         </Route>
+
         <Route path="/cart" exact>
-          {" "}
-          <Cart />{" "}
+          <Cart />
         </Route>
+
         <Route path="/checkout" exact>
           <Checkout />
         </Route>
+
         <Route path="/contact" exact>
-          {" "}
-          <Contatct />{" "}
+          <Contatct />
         </Route>
+
         <Redirect to="/" />
       </Switch>
     );

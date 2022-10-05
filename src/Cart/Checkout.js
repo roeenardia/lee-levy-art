@@ -8,6 +8,7 @@ import {
 import Input from "../Shared/FormElements/Input";
 import Button from "../Shared/FormElements/Button";
 import secureLocalStorage from "react-secure-storage";
+
 import "./Checkout.css";
 
 const Checkout = () => {
@@ -41,10 +42,6 @@ const Checkout = () => {
         value: "",
         isValid: false,
       },
-      idNumber: {
-        value: "",
-        isValid: false,
-      },
     },
     false
   );
@@ -56,10 +53,20 @@ const Checkout = () => {
   const CheckoutSubmitHandler = (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("product", cartItems.productPrice);
-    // formData.append("name", formState.inputs.name.value);
+    formData.append("name", formState.inputs.name.value);
+    formData.append("email", formState.inputs.email.value);
+    for (const order of cartItems) {
+      formData.append("order", order);
+    }
+    formData.append(
+      "orderNumber",
+      Math.floor(new Date().valueOf() * Math.random())
+    );
+    formData.append("orederDate", new Date());
     //console.log(formState.inputs);
-    console.log(formData);
+    for (let [key, value] of formData) {
+      console.log(`${key}: ${value}`);
+    }
   };
 
   return (
@@ -143,19 +150,6 @@ const Checkout = () => {
           onInput={inputHandler}
         />
 
-        <Input
-          id="idNumber"
-          element="input"
-          type="number"
-          label="*תעודת זהות"
-          validators={[
-            VALIDATOR_REQUIRE(),
-            VALIDATOR_MAXLENGTH(8),
-            VALIDATOR_MINLENGTH(8),
-          ]}
-          errorText="Please enter valid id"
-          onInput={inputHandler}
-        />
         <h2 style={{ textAlign: "center" }}>₪{sum} :סהכ לתשלום</h2>
         <Button type="submit" disabled={!formState.isValid}>
           לתשלום

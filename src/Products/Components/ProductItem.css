@@ -5,7 +5,7 @@
 .product-grid {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 50%;
+  /* grid-template-rows: 50%; */
   gap: 70px 0px;
   grid-template-areas: ". .";
   margin-top: 5%;
@@ -14,4 +14,13 @@
 
 .product-item {
   text-align: center;
+}
+
+.product-item a {
+  text-decoration: none;
+  color: black;
+}
+
+.product-item:hover {
+  text-decoration: underline;
 }

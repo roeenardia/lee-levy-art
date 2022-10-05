@@ -96,7 +96,7 @@ const Contatct = () => {
         />
 
         <Button type="submit" disabled={!formState.isValid}>
-          Send Message
+          שלח הודעה
         </Button>
       </form>
     </React.Fragment>

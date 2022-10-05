@@ -6,6 +6,8 @@ import LoadingSpinner from "../../Shared/UIElements/LoadingSpinner";
 import { AuthContext } from "../../Shared/Context/auth-context";
 import { useHttpClient } from "../../Shared/Hooks/http-hook";
 import secureLocalStorage from "react-secure-storage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./ProductItem.css";
 
 const ProductItem = (props) => {
@@ -13,6 +15,29 @@ const ProductItem = (props) => {
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   var [cartItems, SetCartItems] = useState([]);
+
+  const notifyAddToCart = () =>
+    toast.success("מוצר נוסף לסל הקניות", {
+      position: "top-center",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+
+  const notifyItemInCart = () => {
+    toast.warn("מוצר זה כבר בסל הקניות שלך", {
+      position: "top-center",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   const AddToCart = (props) => {
     if (secureLocalStorage.getItem("cart")) {
@@ -33,11 +58,11 @@ const ProductItem = (props) => {
       return vlaueCart.indexOf(item) != idx;
     });
     if (isDup) {
-      alert("מוצר זה כבר בסל הקניות שלך");
+      notifyItemInCart(onclick);
       return;
     }
     secureLocalStorage.setItem("cart", JSON.stringify(cartItems));
-    alert("מוצר נוסף לסל");
+    notifyAddToCart(onclick);
   };
 
   const deleteHandler = async () => {
@@ -60,7 +85,7 @@ const ProductItem = (props) => {
           </div>
           <div className="product-item_info">
             <h2>{props.name}</h2>
-            <h3>{props.price}</h3>
+            <h3>₪{props.price}</h3>
           </div>
         </Link>
         {auth.isLoggedIn && (
@@ -69,9 +94,12 @@ const ProductItem = (props) => {
             <Button>Edit</Button>{" "}
           </Link>
         )}
-        {!auth.isLoggedIn && (
-          <Button onClick={() => AddToCart(props)}>הוסף לעגלה</Button>
-        )}
+        {/* {!auth.isLoggedIn && (
+          <Button onClick={() => AddToCart(props) && notifyAddToCart(props)}>
+            הוסף לעגלה
+            <ToastContainer />
+          </Button>
+        )} */}
         {auth.isLoggedIn && (
           <Button danger onClick={deleteHandler}>
             Delete
