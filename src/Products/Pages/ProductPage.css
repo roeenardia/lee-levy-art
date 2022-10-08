@@ -16,7 +16,8 @@
 }
 
 .product-info img {
-  width: 400px;
+  height: auto;
+  width: auto;
 }
 
 .second-image img {
