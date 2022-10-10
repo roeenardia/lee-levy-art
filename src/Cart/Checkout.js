@@ -7,11 +7,15 @@ import {
 } from "../Shared/util/validators";
 import Input from "../Shared/FormElements/Input";
 import Button from "../Shared/FormElements/Button";
+import LoadingSpinner from "../Shared/UIElements/LoadingSpinner";
 import secureLocalStorage from "react-secure-storage";
 
 import "./Checkout.css";
 
 const Checkout = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   var [cartItems, SetCartItems] = useState(
     JSON.parse(secureLocalStorage.getItem("cart") || "[]")
   );
@@ -50,22 +54,36 @@ const Checkout = () => {
     return value + object.productPrice;
   }, 0);
 
-  const CheckoutSubmitHandler = (event) => {
+  const CheckoutSubmitHandler = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("name", formState.inputs.name.value);
-    formData.append("email", formState.inputs.email.value);
-    for (const order of cartItems) {
-      formData.append("order", order);
-    }
-    formData.append(
-      "orderNumber",
-      Math.floor(new Date().valueOf() * Math.random())
-    );
-    formData.append("orederDate", new Date());
-    //console.log(formState.inputs);
-    for (let [key, value] of formData) {
-      console.log(`${key}: ${value}`);
+    try {
+      setIsLoading(true);
+      const formData = new FormData();
+      formData.append("name", formState.inputs.name.value);
+      formData.append("email", formState.inputs.email.value);
+      for (const order of cartItems) {
+        formData.append("order", order);
+      }
+      formData.append(
+        "orderNumber",
+        Math.floor(new Date().valueOf() * Math.random())
+      );
+      formData.append("orderDate", new Date());
+      const response = await fetch("http://localhost:5000/checkout", {
+        method: "POST",
+        headers: {},
+        body: formData,
+      });
+      const responseData = await response.json();
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      }
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+      setIsLoading(false);
+      setError(err.message || "Somthing went wrong, Please try again.");
+      alert(err.message);
     }
   };
 

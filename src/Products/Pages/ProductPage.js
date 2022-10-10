@@ -14,6 +14,7 @@ const ProductPage = () => {
   const [loadedProducts, setLoadedProducts] = useState();
   var [cartItems, SetCartItems] = useState([]);
   let { id } = useParams();
+  const [size, setSize] = useState("");
 
   const notifyAddToCart = () =>
     toast.success("מוצר נוסף לסל הקניות", {
@@ -48,6 +49,7 @@ const ProductPage = () => {
       productName: loadedProducts.name,
       productPrice: loadedProducts.price,
       image: loadedProducts.image,
+      size: size,
     });
 
     var vlaueCart = cartItems.map(function (item) {
@@ -62,6 +64,11 @@ const ProductPage = () => {
     }
     secureLocalStorage.setItem("cart", JSON.stringify(cartItems));
     notifyAddToCart(onclick);
+  };
+
+  const sizeChange = (event) => {
+    setSize(event.target.value);
+    console.log(event);
   };
 
   useEffect(() => {
@@ -97,6 +104,7 @@ const ProductPage = () => {
                 name="size"
                 value={loadedProducts.size[0]}
                 id={loadedProducts.size[0]}
+                onChange={sizeChange}
               />
             </div>
             <div>
@@ -106,6 +114,7 @@ const ProductPage = () => {
                 name="size"
                 value={loadedProducts.size[1]}
                 id={loadedProducts.size[1]}
+                onChange={sizeChange}
               />
             </div>
           </div>

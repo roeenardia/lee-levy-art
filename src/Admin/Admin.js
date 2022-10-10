@@ -18,7 +18,9 @@ const Admin = () => {
         <Button>הודעות</Button>
       </Link>
 
-      <Button>היסטורית הזמנות</Button>
+      <Link to="/orders-history">
+        <Button>היסטורית הזמנות</Button>
+      </Link>
     </div>
   );
 };

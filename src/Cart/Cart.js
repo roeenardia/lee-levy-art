@@ -26,7 +26,7 @@ const Cart = () => {
   for (const obj of cartItems) {
     countItems++;
   }
-
+  console.log(cartItems);
   return (
     <React.Fragment>
       <div>
@@ -45,11 +45,12 @@ const Cart = () => {
           {cartItems.map((product, index) => {
             return (
               <div>
-                <div key={index} className="cart-item">
+                <div key={product.id} className="cart-item">
                   <Button danger onClick={() => RemoveProduct(product)}>
                     X
                   </Button>
                   <h3>₪{product.productPrice}</h3>
+                  <h3>{product.size}</h3>
                   <h3> {product.productName}</h3>
                   <img src={product.image.url} />
                 </div>

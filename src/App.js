@@ -17,6 +17,7 @@ import Admin from "./Admin/Admin";
 import Login from "./Products/Pages/Login";
 import Cart from "./Cart/Cart";
 import Checkout from "./Cart/Checkout";
+import Orders from "./Products/Components/Orders";
 import { AuthContext } from "./Shared/Context/auth-context";
 import secureLocalStorage from "react-secure-storage";
 
@@ -72,6 +73,10 @@ const App = () => {
 
         <Route path="/contact" exact>
           <Contatct />
+        </Route>
+
+        <Route path="/orders-history">
+          <Orders />
         </Route>
 
         <Redirect to="/admin" />
