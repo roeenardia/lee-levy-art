@@ -9,7 +9,6 @@ import Input from "../Shared/FormElements/Input";
 import Button from "../Shared/FormElements/Button";
 import LoadingSpinner from "../Shared/UIElements/LoadingSpinner";
 import secureLocalStorage from "react-secure-storage";
-
 import "./Checkout.css";
 
 const Checkout = () => {
@@ -54,31 +53,41 @@ const Checkout = () => {
     return value + object.productPrice;
   }, 0);
 
+  let order = cartItems;
+
+  const dateFormat = () => {
+    let date, month, year;
+    date = new Date().getDate();
+    month = new Date().getMonth() + 1;
+    year = new Date().getFullYear();
+
+    date = date.toString().padStart(2, "0");
+    month = month.toString().padStart(2, "0");
+    return `${date}/${month}/${year}`;
+  };
+
   const CheckoutSubmitHandler = async (event) => {
     event.preventDefault();
     try {
       setIsLoading(true);
-      const formData = new FormData();
-      formData.append("name", formState.inputs.name.value);
-      formData.append("email", formState.inputs.email.value);
-      for (const order of cartItems) {
-        formData.append("order", order);
-      }
-      formData.append(
-        "orderNumber",
-        Math.floor(new Date().valueOf() * Math.random())
-      );
-      formData.append("orderDate", new Date());
       const response = await fetch("http://localhost:5000/checkout", {
         method: "POST",
-        headers: {},
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formState.inputs.name.value,
+          email: formState.inputs.email.value,
+          order: order,
+          orderNumber: Math.floor(new Date().valueOf()),
+          orderDate: dateFormat(),
+        }),
       });
       const responseData = await response.json();
       if (!response.ok) {
         throw new Error(responseData.message);
       }
       setIsLoading(false);
+      secureLocalStorage.removeItem("cart");
+      alert("הזמנה נשלחה בהצלחה");
     } catch (err) {
       console.log(err);
       setIsLoading(false);

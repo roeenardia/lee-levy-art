@@ -97,7 +97,8 @@ const ProductPage = () => {
         {isLoading && <LoadingSpinner asOverlay />}
         <div className="product-page">
           <div className="size">
-            <div>
+            <div className="mida">בחר מידה</div>
+            <div className="radio-btn">
               <label>{loadedProducts.size[0]}</label>
               <input
                 type="radio"
@@ -107,7 +108,7 @@ const ProductPage = () => {
                 onChange={sizeChange}
               />
             </div>
-            <div>
+            <div className="radio-btn">
               <label>{loadedProducts.size[1]}</label>
               <input
                 type="radio"
@@ -129,7 +130,10 @@ const ProductPage = () => {
             />
             <h2>{loadedProducts.name}</h2>
             <h3>₪{loadedProducts.price}</h3>
-            <Button onClick={() => AddToCart() && notifyAddToCart()}>
+            <Button
+              onClick={() => AddToCart() && notifyAddToCart()}
+              disabled={!size}
+            >
               הוסף לעגלה
               <ToastContainer />
             </Button>

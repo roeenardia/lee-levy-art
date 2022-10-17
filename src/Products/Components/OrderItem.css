@@ -1,0 +1,16 @@
+.order-list {
+  direction: rtl;
+  text-align: center;
+}
+
+.order-items {
+}
+
+.order-items img {
+  width: 10%;
+}
+.product-orderd {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
