@@ -3,12 +3,8 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "../../Shared/FormElements/Button";
 import Input from "../../Shared/FormElements/Input";
-import {
-  VALIDATOR_FILE,
-  VALIDATOR_REQUIRE,
-} from "../../Shared/util/validators";
+import { VALIDATOR_REQUIRE } from "../../Shared/util/validators";
 import { useForm } from "../../Shared/Hooks/Form-Hook";
-import { AuthContext } from "../../Shared/Context/auth-context";
 import LoadingSpinner from "../../Shared/UIElements/LoadingSpinner";
 import ImageUpload from "../../Shared/FormElements/ImageUpload";
 import "./NewProduct.css";
@@ -54,9 +50,7 @@ const NewProduct = () => {
       }
       const response = await fetch("http://localhost:5000/new-product", {
         method: "POST",
-        headers: {
-          // 'Content-Type': 'application/json'
-        },
+        headers: {},
         body: formData,
       });
       const responseData = await response.json();
@@ -81,7 +75,7 @@ const NewProduct = () => {
           id="name"
           element="input"
           type="text"
-          label="Product Name"
+          label="שם מוצר"
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a vaild name"
           onInput={inputHandler}
@@ -91,7 +85,7 @@ const NewProduct = () => {
           id="price"
           element="input"
           type="number"
-          label="Product Price"
+          label="מחיר מוצר"
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a vaild price"
           onInput={inputHandler}
@@ -101,18 +95,18 @@ const NewProduct = () => {
           id="image"
           name="image"
           onInput={inputHandler}
-          errorText="Please pick an image."
+          errorText="בחר תמונה"
         />
         <ImageUpload
           id="photos"
           name="photos"
           onInput={inputHandler}
-          errorText="Please pick an image."
+          errorText="בחר תמונה"
           multiple
         />
 
         <Button type="submit" disabled={!formState.isValid}>
-          ADD PRODUCT
+          הוסף מוצר
         </Button>
       </form>
     </React.Fragment>

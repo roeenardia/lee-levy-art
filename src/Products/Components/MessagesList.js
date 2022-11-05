@@ -13,6 +13,7 @@ function MessagesList(props) {
             name={message.name}
             email={message.email}
             message={message.message}
+            messageDate={message.messageDate}
           />
         );
       })}

@@ -1,14 +1,19 @@
 .empy-cart {
   text-align: center;
   padding: 100px;
+  font-family: "Amatic SC", "cursive";
+  max-width: 60%;
 }
 
 .cart-title {
   text-align: center;
+  font-family: "Amatic SC", "cursive";
+  font-size: xx-large;
 }
 
 .cart-window {
-  margin-left: 20%;
+  /* margin-left: 20%; */
+  overflow-y: auto;
 }
 
 .cart-item {
@@ -17,6 +22,8 @@
   justify-content: space-evenly;
   margin-top: 50px;
   margin-bottom: 50px;
+  font-family: "Amatic SC", "cursive";
+  font-size: x-large;
 }
 
 .cart-item img {
@@ -46,6 +53,8 @@
   margin-left: 3%;
   margin-top: 3%;
   text-align: center;
+  font-family: "Amatic SC", "cursive";
+  font-size: xx-large;
   border: 1px solid;
   float: left;
   height: 300px;
@@ -56,6 +65,8 @@
 
 .cart-summery button {
   width: 100%;
+  font-family: "Amatic SC", "cursive";
+  font-size: xx-large;
 }
 
 .proceed {
@@ -88,4 +99,23 @@
 
 .proceed:hover {
   background: #00bd68;
+}
+
+@media screen and (max-width: 420px) {
+  .cart-item {
+    justify-content: space-between;
+  }
+  .cart-summery {
+    width: 50%;
+    font-size: 20px;
+    height: 200px;
+  }
+  .cart-item img {
+    width: 25%;
+  }
+  .cart-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 }

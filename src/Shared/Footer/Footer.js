@@ -18,7 +18,7 @@ function Footer() {
           <div className="instagram">
             <Instagram />
           </div>
-          <div className="about">ABOUT</div>
+          <div className="about">אודות</div>
         </div>
       </div>
     </div>

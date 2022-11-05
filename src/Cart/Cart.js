@@ -29,8 +29,8 @@ const Cart = () => {
   console.log(cartItems);
   return (
     <React.Fragment>
-      <div>
-        <h2 className="cart-title">סל קניות</h2>
+      <h2 className="cart-title">סל קניות</h2>
+      <div className="cart-container">
         <span className="fade-line"></span>
         <div className="cart-summery">
           סיכום הזמנה

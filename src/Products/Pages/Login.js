@@ -9,8 +9,6 @@ import secureLocalStorage from "react-secure-storage";
 import LoadingSpinner from "../../Shared/UIElements/LoadingSpinner";
 import "./Login.css";
 
-//const adminUser = {userName: 'roeen', password: 'roee123'}
-
 const Login = () => {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);

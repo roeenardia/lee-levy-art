@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-
 import Button from "./Button";
 import "./ImageUpload.css";
 
@@ -17,19 +16,10 @@ const ImageUpload = (props) => {
     }
     if (props.multiple) {
       return;
-      // file.map((f) => {
-      //   const fileReader = new FileReader();
-      //   fileReader.onload = () => {
-      //     setPreviewUrl(fileReader.result);
-      //     //console.log(fileReader.result)
-      //   };
-      //   fileReader.readAsDataURL(f);
-      // });
     } else {
       const fileReader = new FileReader();
       fileReader.onload = () => {
         setPreviewUrl(fileReader.result);
-        //console.log(fileReader.result)
       };
       fileReader.readAsDataURL(file);
     }
@@ -69,10 +59,10 @@ const ImageUpload = (props) => {
       <div className={`image-upload ${props.center && "center"}`}>
         <div className="image-upload__preview">
           {previewUrl && <img src={previewUrl} alt="Preview" />}
-          {!previewUrl && <p>Please pick an image.</p>}
+          {!previewUrl && <p>תמונה</p>}
         </div>
         <Button type="button" onClick={pickImageHandler}>
-          PICK IMAGE
+          העלת תמונה
         </Button>
         {!isValid && <p>{props.errorText}</p>}
       </div>

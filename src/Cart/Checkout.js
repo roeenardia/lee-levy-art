@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useForm } from "../Shared/Hooks/Form-Hook";
 import {
   VALIDATOR_REQUIRE,
@@ -9,12 +10,13 @@ import Input from "../Shared/FormElements/Input";
 import Button from "../Shared/FormElements/Button";
 import LoadingSpinner from "../Shared/UIElements/LoadingSpinner";
 import secureLocalStorage from "react-secure-storage";
+import emailjs from "emailjs-com";
 import "./Checkout.css";
 
 const Checkout = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const history = useHistory();
   var [cartItems, SetCartItems] = useState(
     JSON.parse(secureLocalStorage.getItem("cart") || "[]")
   );
@@ -66,6 +68,14 @@ const Checkout = () => {
     return `${date}/${month}/${year}`;
   };
 
+  const generateOrderNumber = () => {};
+
+  const sendEmail = (event) => {
+    event.preventDefault();
+
+    const data = {};
+  };
+
   const CheckoutSubmitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -86,8 +96,10 @@ const Checkout = () => {
         throw new Error(responseData.message);
       }
       setIsLoading(false);
+      sendEmail(event);
       secureLocalStorage.removeItem("cart");
       alert("הזמנה נשלחה בהצלחה");
+      history.push("/");
     } catch (err) {
       console.log(err);
       setIsLoading(false);
@@ -104,6 +116,7 @@ const Checkout = () => {
           id="name"
           element="input"
           type="text"
+          name="name"
           label="*שם מלא"
           validators={[VALIDATOR_REQUIRE()]}
           errorText="Please enter a vaild name"

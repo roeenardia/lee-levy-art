@@ -84,8 +84,8 @@ const ProductItem = (props) => {
             {/* <img src={props.photos[0].url} alt={props.name} /> */}
           </div>
           <div className="product-item_info">
-            <h2>{props.name}</h2>
-            <h3>₪{props.price}</h3>
+            <h1>{props.name}</h1>
+            <h2>₪{props.price}</h2>
           </div>
         </Link>
         {auth.isLoggedIn && (

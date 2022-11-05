@@ -21,11 +21,9 @@ const Header = () => {
       <div>
         {auth.isLoggedIn && <button onClick={auth.logout}>LOG OUT</button>}
         <Link to="/cart">
-          {" "}
           <div className="cart">
-            {/* {countItems} */}
             <Cart3 />
-          </div>{" "}
+          </div>
         </Link>
       </div>
       <Link to="/">

@@ -5,6 +5,7 @@ import Button from "../../FormElements/Button";
 import LoadingSpinner from "../../UIElements/LoadingSpinner";
 import { useForm } from "../../Hooks/Form-Hook";
 import { VALIDATOR_EMAIL, VALIDATOR_REQUIRE } from "../../util/validators";
+import emailjs from "emailjs-com";
 import "./Contact.css";
 
 const Contatct = () => {
@@ -29,7 +30,38 @@ const Contatct = () => {
     false
   );
 
+  const dateFormat = () => {
+    let date, month, year;
+    date = new Date().getDate();
+    month = new Date().getMonth() + 1;
+    year = new Date().getFullYear();
+
+    date = date.toString().padStart(2, "0");
+    month = month.toString().padStart(2, "0");
+    return `${date}/${month}/${year}`;
+  };
+
   const history = useHistory();
+
+  const sendEmail = (event) => {
+    event.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_LLA",
+        "template_28xv0vd",
+        event.target,
+        "FJJ5k4WW9wR1MZHvy"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
 
   const contactSubmitHandler = async (event) => {
     event.preventDefault();
@@ -44,6 +76,7 @@ const Contatct = () => {
           name: formState.inputs.name.value,
           email: formState.inputs.email.value,
           message: formState.inputs.message.value,
+          messageDate: dateFormat(),
         }),
       });
       const responseData = await response.json();
@@ -52,6 +85,7 @@ const Contatct = () => {
       }
       setIsLoading(false);
       alert("!הודעה נשלחה בהצלחה");
+      sendEmail(event);
       history.push("/");
     } catch (err) {
       console.log(err);
@@ -69,6 +103,7 @@ const Contatct = () => {
           id="name"
           element="input"
           type="text"
+          name="name"
           label="שם"
           validators={[VALIDATOR_REQUIRE]}
           errorText="please enter your name"
@@ -79,6 +114,7 @@ const Contatct = () => {
           id="email"
           element="input"
           type="email"
+          name="email"
           label="מייל"
           validators={[VALIDATOR_REQUIRE, VALIDATOR_EMAIL]}
           errorText="please enter valid Email"
@@ -89,6 +125,7 @@ const Contatct = () => {
           id="message"
           element="textarea"
           type="text"
+          name="message"
           label="הודעה"
           validators={[VALIDATOR_REQUIRE]}
           errorText="please enter valid Message"

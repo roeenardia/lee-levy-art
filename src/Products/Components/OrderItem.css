@@ -1,9 +1,13 @@
 .order-list {
   direction: rtl;
   text-align: center;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
-.order-items {
+.order-list input {
+  padding: 10px 40px;
+  font-size: large;
 }
 
 .order-items img {
@@ -13,4 +17,9 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.search {
+  direction: rtl;
+  text-align: center;
 }

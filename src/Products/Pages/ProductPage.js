@@ -21,7 +21,7 @@ const ProductPage = () => {
       position: "top-center",
       autoClose: 1500,
       hideProgressBar: false,
-      closeOnClick: false,
+      closeOnClick: true,
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
@@ -32,7 +32,7 @@ const ProductPage = () => {
       position: "top-center",
       autoClose: 1500,
       hideProgressBar: false,
-      closeOnClick: false,
+      closeOnClick: true,
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
@@ -68,7 +68,6 @@ const ProductPage = () => {
 
   const sizeChange = (event) => {
     setSize(event.target.value);
-    console.log(event);
   };
 
   useEffect(() => {
@@ -97,30 +96,40 @@ const ProductPage = () => {
         {isLoading && <LoadingSpinner asOverlay />}
         <div className="product-page">
           <div className="size">
-            <div className="mida">בחר מידה</div>
-            <div className="radio-btn">
-              <label>{loadedProducts.size[0]}</label>
-              <input
-                type="radio"
-                name="size"
-                value={loadedProducts.size[0]}
-                id={loadedProducts.size[0]}
-                onChange={sizeChange}
-              />
+            <h1 style={{ textAlign: "end" }}>{loadedProducts.name}</h1>
+            <div className="mida">
+              <h3>בחר מידה</h3>
+              <div className="radio-btn">
+                <label>{loadedProducts.size[0]}</label>
+                <input
+                  type="radio"
+                  name="size"
+                  value={loadedProducts.size[0]}
+                  id={loadedProducts.size[0]}
+                  onChange={sizeChange}
+                />
+              </div>
+              <div className="radio-btn">
+                <label>{loadedProducts.size[1]}</label>
+                <input
+                  type="radio"
+                  name="size"
+                  value={loadedProducts.size[1]}
+                  id={loadedProducts.size[1]}
+                  onChange={sizeChange}
+                />
+              </div>
             </div>
-            <div className="radio-btn">
-              <label>{loadedProducts.size[1]}</label>
-              <input
-                type="radio"
-                name="size"
-                value={loadedProducts.size[1]}
-                id={loadedProducts.size[1]}
-                onChange={sizeChange}
-              />
-            </div>
+            <Button
+              onClick={() => AddToCart() && notifyAddToCart()}
+              disabled={!size}
+            >
+              ₪{loadedProducts.price} הוסף לעגלה
+              <ToastContainer />
+            </Button>
           </div>
 
-          <div className="product-info">
+          <div className="product-image">
             <SimpleImageSlider
               width={530}
               height={640}
@@ -128,15 +137,15 @@ const ProductPage = () => {
               showBullets={true}
               showNavs={true}
             />
-            <h2>{loadedProducts.name}</h2>
-            <h3>₪{loadedProducts.price}</h3>
-            <Button
-              onClick={() => AddToCart() && notifyAddToCart()}
-              disabled={!size}
-            >
-              הוסף לעגלה
-              <ToastContainer />
-            </Button>
+          </div>
+          <div className="product-image-phone">
+            <SimpleImageSlider
+              width={250}
+              height={300}
+              images={images}
+              showBullets={true}
+              showNavs={true}
+            />
           </div>
         </div>
         <div className="product-page-item">
