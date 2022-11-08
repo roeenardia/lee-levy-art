@@ -21,7 +21,7 @@ const ProductItem = (props) => {
       position: "top-center",
       autoClose: 1500,
       hideProgressBar: false,
-      closeOnClick: false,
+      closeOnClick: true,
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
@@ -32,7 +32,7 @@ const ProductItem = (props) => {
       position: "top-center",
       autoClose: 1500,
       hideProgressBar: false,
-      closeOnClick: false,
+      closeOnClick: true,
       pauseOnHover: false,
       draggable: true,
       progress: undefined,
@@ -94,12 +94,6 @@ const ProductItem = (props) => {
             <Button>Edit</Button>{" "}
           </Link>
         )}
-        {/* {!auth.isLoggedIn && (
-          <Button onClick={() => AddToCart(props) && notifyAddToCart(props)}>
-            הוסף לעגלה
-            <ToastContainer />
-          </Button>
-        )} */}
         {auth.isLoggedIn && (
           <Button danger onClick={deleteHandler}>
             Delete

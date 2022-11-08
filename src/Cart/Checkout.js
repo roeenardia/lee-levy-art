@@ -68,12 +68,42 @@ const Checkout = () => {
     return `${date}/${month}/${year}`;
   };
 
-  const generateOrderNumber = () => {};
+  const generateOrderNumber = () => {
+    var orderNumber = Date.now();
+    orderNumber = orderNumber.toString();
+    let newNum = orderNumber.slice(0, -3);
+    return newNum;
+  };
 
   const sendEmail = (event) => {
     event.preventDefault();
 
-    const data = {};
+    const data = {
+      service_id: "service_LLA",
+      template_id: "template_pajad5i",
+      user_id: "FJJ5k4WW9wR1MZHvy",
+      template_params: {
+        orderNumber: generateOrderNumber(),
+        name: formState.inputs.name.value,
+      },
+    };
+
+    fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then(
+      (result) => {
+        console.log(result.statusText);
+      },
+      (error) => {
+        console.log(error.statusText);
+      }
+    );
+
+    event.target.reset();
   };
 
   const CheckoutSubmitHandler = async (event) => {
@@ -87,7 +117,7 @@ const Checkout = () => {
           name: formState.inputs.name.value,
           email: formState.inputs.email.value,
           order: order,
-          orderNumber: Math.floor(new Date().valueOf()),
+          orderNumber: generateOrderNumber(),
           orderDate: dateFormat(),
         }),
       });
