@@ -19,7 +19,12 @@ const Header = () => {
   return (
     <div className="header">
       <div>
-        {auth.isLoggedIn && <button onClick={auth.logout}>LOG OUT</button>}
+        {auth.isLoggedIn && <button onClick={auth.logout}>התנתק</button>}
+        {auth.isLoggedIn && (
+          <Link to="/login">
+            <button>דף מנהל</button>
+          </Link>
+        )}
         <Link to="/cart">
           <div className="cart">
             <Cart3 />

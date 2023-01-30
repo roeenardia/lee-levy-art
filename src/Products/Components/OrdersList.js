@@ -8,14 +8,15 @@ const OrdersList = (props) => {
 
   return (
     <React.Fragment>
-      <input
-        className="search"
-        type="text"
-        placeholder="חפש מספר הזמנה"
-        onChange={(event) => {
-          SetSearch(event.target.value);
-        }}
-      />
+      <div className="search">
+        <input
+          type="text"
+          placeholder="חפש מספר הזמנה"
+          onChange={(event) => {
+            SetSearch(event.target.value);
+          }}
+        />
+      </div>
       <div className="order-list">
         {props.items
           .filter((order) => {

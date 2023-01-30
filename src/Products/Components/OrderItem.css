@@ -8,6 +8,8 @@
 .order-list input {
   padding: 10px 40px;
   font-size: large;
+  display: flex;
+  justify-content: center;
 }
 
 .order-items img {
@@ -21,5 +23,9 @@
 
 .search {
   direction: rtl;
+  text-align: center;
+}
+
+.search input {
   text-align: center;
 }

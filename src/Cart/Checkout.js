@@ -5,11 +5,14 @@ import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MAXLENGTH,
   VALIDATOR_MINLENGTH,
+  VALIDATOR_MAX,
+  VALIDATOR_MIN,
 } from "../Shared/util/validators";
 import Input from "../Shared/FormElements/Input";
 import Button from "../Shared/FormElements/Button";
 import LoadingSpinner from "../Shared/UIElements/LoadingSpinner";
 import secureLocalStorage from "react-secure-storage";
+import { ToastContainer, toast } from "react-toastify";
 import emailjs from "emailjs-com";
 import "./Checkout.css";
 
@@ -75,6 +78,22 @@ const Checkout = () => {
     return newNum;
   };
 
+  const checkedOut = () =>
+    toast.success("הזמנתך נקלטה בהצלחה", {
+      position: "top-center",
+      autoClose: 1500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
+
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+  const delayFunc = async () => {
+    await delay(2000);
+  };
+
   const sendEmail = (event) => {
     event.preventDefault();
 
@@ -85,6 +104,7 @@ const Checkout = () => {
       template_params: {
         orderNumber: generateOrderNumber(),
         name: formState.inputs.name.value,
+        email: formState.inputs.email.value,
       },
     };
 
@@ -125,10 +145,11 @@ const Checkout = () => {
       if (!response.ok) {
         throw new Error(responseData.message);
       }
-      setIsLoading(false);
       sendEmail(event);
       secureLocalStorage.removeItem("cart");
-      alert("הזמנה נשלחה בהצלחה");
+      checkedOut(onclick);
+      await delayFunc();
+      setIsLoading(false);
       history.push("/");
     } catch (err) {
       console.log(err);
@@ -142,6 +163,7 @@ const Checkout = () => {
     <React.Fragment>
       <h4 style={{ textAlign: "center" }}>כרגע כל ההזמנות הן איסוף עצמי</h4>
       <form className="checkout-form" onSubmit={CheckoutSubmitHandler}>
+        {isLoading && <LoadingSpinner asOverlay />}
         <Input
           id="name"
           element="input"
@@ -149,7 +171,7 @@ const Checkout = () => {
           name="name"
           label="*שם מלא"
           validators={[VALIDATOR_REQUIRE()]}
-          errorText="Please enter a vaild name"
+          errorText="הכנס שם בבקשה"
           onInput={inputHandler}
         />
 
@@ -159,7 +181,7 @@ const Checkout = () => {
           type="email"
           label="*מייל"
           validators={[VALIDATOR_REQUIRE()]}
-          errorText="Please enter a valid email address"
+          errorText="כתובת מייל לא תקינה"
           onInput={inputHandler}
         />
 
@@ -173,7 +195,7 @@ const Checkout = () => {
             VALIDATOR_MAXLENGTH(16),
             VALIDATOR_MINLENGTH(16),
           ]}
-          errorText="Please enter a valid Credit Card number"
+          errorText="מספר כרטיס אשראי לא תקין"
           onInput={inputHandler}
         />
 
@@ -187,8 +209,10 @@ const Checkout = () => {
               VALIDATOR_REQUIRE(),
               VALIDATOR_MAXLENGTH(2),
               VALIDATOR_MINLENGTH(2),
+              VALIDATOR_MAX(12),
+              VALIDATOR_MIN(1),
             ]}
-            errorText="Please enter valid month"
+            errorText="הכנס חודש תקין"
             onInput={inputHandler}
           />
           <Input
@@ -198,10 +222,12 @@ const Checkout = () => {
             label="*שנה"
             validators={[
               VALIDATOR_REQUIRE(),
-              VALIDATOR_MAXLENGTH(4),
-              VALIDATOR_MINLENGTH(4),
+              VALIDATOR_MAXLENGTH(2),
+              VALIDATOR_MINLENGTH(2),
+              VALIDATOR_MAX(28),
+              VALIDATOR_MIN(24),
             ]}
-            errorText="Please enter a valid year"
+            errorText="הכנס שנה תקינה"
             onInput={inputHandler}
           />
         </div>
@@ -216,13 +242,18 @@ const Checkout = () => {
             VALIDATOR_MAXLENGTH(3),
             VALIDATOR_MINLENGTH(3),
           ]}
-          errorText="Please enter valid cvv"
+          errorText="הכנס 3 ספרות בגב הכרטיס"
           onInput={inputHandler}
         />
 
         <h2 style={{ textAlign: "center" }}>₪{sum} :סהכ לתשלום</h2>
-        <Button type="submit" disabled={!formState.isValid}>
+        <Button
+          type="submit"
+          disabled={!formState.isValid}
+          onSubmit={() => checkedOut()}
+        >
           לתשלום
+          <ToastContainer />
         </Button>
       </form>
     </React.Fragment>

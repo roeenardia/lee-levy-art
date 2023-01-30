@@ -72,7 +72,6 @@ const ProductItem = (props) => {
     } catch (err) {}
   };
 
-  // console.log(props.photos[0].url);
 
   return (
     <div className="product-item">

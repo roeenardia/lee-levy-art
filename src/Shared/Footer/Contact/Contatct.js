@@ -4,7 +4,12 @@ import Input from "../../FormElements/Input";
 import Button from "../../FormElements/Button";
 import LoadingSpinner from "../../UIElements/LoadingSpinner";
 import { useForm } from "../../Hooks/Form-Hook";
-import { VALIDATOR_EMAIL, VALIDATOR_REQUIRE } from "../../util/validators";
+import {
+  VALIDATOR_EMAIL,
+  VALIDATOR_REQUIRE,
+  VALIDATOR_MINLENGTH,
+} from "../../util/validators";
+import { ToastContainer, toast } from "react-toastify";
 import emailjs from "emailjs-com";
 import "./Contact.css";
 
@@ -29,6 +34,22 @@ const Contatct = () => {
     },
     false
   );
+
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+  const delayFunc = async () => {
+    await delay(2000);
+  };
+
+  const messageSent = () =>
+    toast.success("הודעה נמסרה בהצלחה", {
+      position: "top-center",
+      autoClose: 1500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+    });
 
   const dateFormat = () => {
     let date, month, year;
@@ -83,15 +104,16 @@ const Contatct = () => {
       if (!response.ok) {
         throw new Error(responseData.message);
       }
-      setIsLoading(false);
-      alert("!הודעה נשלחה בהצלחה");
+      messageSent(onclick);
+      await delayFunc();
       sendEmail(event);
+      setIsLoading(false);
       history.push("/");
     } catch (err) {
       console.log(err);
       setIsLoading(false);
       setError(err.message || "Something went wrong, please try again");
-      alert(err.message);
+      //messageSent(onclick);
     }
   };
 
@@ -105,8 +127,8 @@ const Contatct = () => {
           type="text"
           name="name"
           label="שם"
-          validators={[VALIDATOR_REQUIRE]}
-          errorText="please enter your name"
+          validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(2)]}
+          errorText="הכנס שם, 2 אותיות לפחות"
           onInput={inputHandler}
         />
 
@@ -116,8 +138,8 @@ const Contatct = () => {
           type="email"
           name="email"
           label="מייל"
-          validators={[VALIDATOR_REQUIRE, VALIDATOR_EMAIL]}
-          errorText="please enter valid Email"
+          validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
+          errorText="הכנס מייל תקין"
           onInput={inputHandler}
         />
 
@@ -127,13 +149,18 @@ const Contatct = () => {
           type="text"
           name="message"
           label="הודעה"
-          validators={[VALIDATOR_REQUIRE]}
-          errorText="please enter valid Message"
+          validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(10)]}
+          errorText="כתוב הודעה, לפחות 10 תווים"
           onInput={inputHandler}
         />
 
-        <Button type="submit" disabled={!formState.isValid}>
+        <Button
+          type="submit"
+          disabled={!formState.isValid}
+          onSubmit={() => messageSent()}
+        >
           שלח הודעה
+          <ToastContainer />
         </Button>
       </form>
     </React.Fragment>

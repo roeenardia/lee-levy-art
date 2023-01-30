@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { link } from "react-router-dom";
 import { AuthContext } from "../../Shared/Context/auth-context";
 import LoadingSpinner from "../../Shared/UIElements/LoadingSpinner";
+import secureLocalStorage from "react-secure-storage";
 import "./MessageItem.css";
 
 function MessageItem(props) {
