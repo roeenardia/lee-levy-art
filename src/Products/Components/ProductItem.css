@@ -26,6 +26,12 @@
   text-decoration: underline;
 }
 
+@media screen and (min-width: 420px) {
+  .product-grid {
+    zoom: 75%;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .product-grid {
     display: flex;
